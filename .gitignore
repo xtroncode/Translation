@@ -1,0 +1,11 @@
+*/bin
+*/obj
+errors/
+.vs/
+*.log
+packages/
+*/_CodeCoverageReport
+*/_CodeCoverageReport/*
+/UnitTests/_CodeCoverageResult.xml
+.sonarqube
+*.orig

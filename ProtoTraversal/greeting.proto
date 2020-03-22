@@ -1,0 +1,53 @@
+syntax = "proto3";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  bool should_translate = 50002;
+  string translation_key = 50003;
+}
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1 [(should_translate) = true, (translation_key) = "names"];
+  string fullname = 2 ;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+message VersionSummary
+{
+    int32 Id = 1; 
+    string Name = 2 [(should_translate) = true, (translation_key) = "version_name"];
+    string MaskingName = 3;
+    int32 MakeId = 4;
+    string MakeName = 5 [(should_translate) = true, (translation_key) = "make_name"];
+    string MakeMaskingName = 6;
+    int32 ModelId = 7;
+    string ModelName = 8 [(should_translate) = true, (translation_key) = "model_name"];
+    string ModelMaskingName = 9;
+    MmvStatus Status = 10;
+    string UpdatedOn = 11;
+    int32 ApplicationId = 12;
+    string ImagePath = 13;
+    repeated HelloRequest HelloRequests = 14;
+    repeated int32 RandomNumbers = 15;
+    repeated string SimilarVersionNames = 16 [(should_translate) = true, (translation_key) = "version_name"];
+}
+
+enum MmvStatus
+{   
+    None = 0;
+    Futuristic = 1;
+    New = 2;
+    Discontinued =3;
+    InActive = 4;
+}
