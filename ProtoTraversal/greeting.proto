@@ -41,6 +41,7 @@ message VersionSummary
     repeated HelloRequest HelloRequests = 14;
     repeated int32 RandomNumbers = 15;
     repeated string SimilarVersionNames = 16 [(should_translate) = true, (translation_key) = "version_name"];
+    HelloRequest Hello = 17;
 }
 
 enum MmvStatus

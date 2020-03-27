@@ -6,6 +6,8 @@ using System.Text;
 using Google.Protobuf;
 using Google.Protobuf.Collections;
 using Google.Protobuf.Reflection;
+using BenchmarkDotNet.Running;
+
 
 namespace ProtoTraversal
 {
@@ -28,7 +30,7 @@ namespace ProtoTraversal
 			translations["hi"]["version_name"]["XE Diesel"] = "एक्सई डीज़ल‎‌‎‌";
 			translations["hi"]["names"]["one"] = "Ek";
 			translations["hi"]["names"]["two"] = "Do";
-			Console.WriteLine("Hello World!");
+			
 			VersionSummary versionSummary = new VersionSummary
 			{
 				ApplicationId = 1,
@@ -44,6 +46,10 @@ namespace ProtoTraversal
 				ModelName = "Altroz",
 				Status = MmvStatus.New,
 				UpdatedOn = "some date",
+				Hello = new HelloRequest{
+						Fullname = "one plus",
+						Name = "one"
+					}
 			};
 			versionSummary.HelloRequests.AddRange(new Google.Protobuf.Collections.RepeatedField<HelloRequest>{
 					new HelloRequest{
@@ -65,10 +71,10 @@ namespace ProtoTraversal
 			Console.WriteLine(optionValue);
 			fullnameDescriptor.CustomOptions.TryGetString(GreetingExtensions.TranslationKey.FieldNumber, out string optionValueb);
 			Console.WriteLine(optionValueb);
-			Console.WriteLine(versionSummary.GetType().FullName);
-			TranslateProtoMessage(versionSummary, "hi");
-			Console.WriteLine(versionSummary.ToString());
-            Console.WriteLine(translations["hi"]["make_name"]["Tata"]);
+			//Console.WriteLine(versionSummary.GetType().FullName);
+			//TranslateProtoMessage(versionSummary, "hi");
+			//Console.WriteLine(versionSummary.ToString());
+			var summary = BenchmarkRunner.Run(typeof(Program).Assembly);
 		}
 
 		public static IMessage TranslateProtoMessage(IMessage message, string language)
