@@ -80,6 +80,12 @@ namespace ProtoTraversal
             
             //translations.ContainsKey("hi");
         }
+
+        [Benchmark]
+        [ArgumentsSource(nameof(GetRequest))]
+        public void SingleField(HelloRequest helloRequest){
+            TranslateProtoMessage(helloRequest,"hi");
+        }
         public IEnumerable<object> GetSummary(){
             VersionSummary versionSummary = new VersionSummary
 			{
@@ -114,6 +120,15 @@ namespace ProtoTraversal
 			versionSummary.RandomNumbers.AddRange(new List<int> { 1, 2, 3, 4, 5 });
 			versionSummary.SimilarVersionNames.AddRange(new List<string> { "XT Petrol", "XE Diesel" });
             yield return  versionSummary ;
+        }
+
+        public IEnumerable<object> GetRequest(){
+            var	request = new HelloRequest{
+						Fullname = "one plus",
+						Name = "one"
+					};
+			
+            yield return  request ;
         }
 
         [GlobalSetup]
